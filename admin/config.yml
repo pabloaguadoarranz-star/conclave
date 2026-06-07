@@ -1,11 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: TU_USUARIO/TU_REPOSITORIO   # ← Cambiar por tu usuario y nombre de repo
   branch: main
-
-# Para desarrollo local: descomenta las dos líneas siguientes y comenta las de arriba
-# backend:
-#   name: proxy
-#   proxy_url: http://localhost:8081/api/v1
+  auth_type: implicit
+  app_id: TU_GITHUB_OAUTH_APP_CLIENT_ID  # ← Cambiar por tu Client ID de GitHub OAuth
 
 locale: es
 media_folder: "assets/img"
@@ -16,40 +14,44 @@ collections:
     label: "Contenido del sitio"
     files:
 
-      - label: "Hero — Portada"
-        name: "hero"
+      - label: "Todo el contenido"
+        name: "contenido"
         file: "content.json"
         fields:
-          - label: "Meta"
+          - label: "Meta (SEO)"
             name: "meta"
             widget: "object"
+            collapsed: false
             fields:
-              - { label: "Título de la página (SEO)", name: "titulo", widget: "string" }
-              - { label: "Descripción (SEO)", name: "descripcion", widget: "text" }
+              - { label: "Título de la página", name: "titulo", widget: "string" }
+              - { label: "Descripción (Google)", name: "descripcion", widget: "text" }
 
           - label: "Hero — Portada"
             name: "hero"
             widget: "object"
+            collapsed: false
             fields:
-              - { label: "Tagline 1", name: "tagline_1", widget: "string", hint: "Primera palabra del tagline (ej: Comer)" }
-              - { label: "Tagline 2", name: "tagline_2", widget: "string", hint: "Segunda palabra (ej: Beber)" }
-              - { label: "Tagline 3", name: "tagline_3", widget: "string", hint: "Tercera palabra (ej: Pecar)" }
-              - { label: "Subtítulo", name: "subtitulo", widget: "string", hint: "Texto en cursiva bajo el logo" }
+              - { label: "Tagline — palabra 1", name: "tagline_1", widget: "string", hint: "Ej: Comer" }
+              - { label: "Tagline — palabra 2", name: "tagline_2", widget: "string", hint: "Ej: Beber" }
+              - { label: "Tagline — palabra 3", name: "tagline_3", widget: "string", hint: "Ej: Pecar" }
+              - { label: "Subtítulo (cursiva)", name: "subtitulo", widget: "string" }
               - { label: "Texto de apertura", name: "proximamente", widget: "string", hint: "Ej: Próximamente · Barrio del Carme · Valencia" }
 
           - label: "Sección — El Concepto"
             name: "concepto"
             widget: "object"
+            collapsed: true
             fields:
               - { label: "Etiqueta de sección", name: "label", widget: "string" }
-              - { label: "Título", name: "titulo", widget: "string", hint: "Usa \\n para saltos de línea" }
-              - { label: "Párrafo 1", name: "parrafo_1", widget: "text" }
-              - { label: "Párrafo 2", name: "parrafo_2", widget: "text" }
-              - { label: "Definición (cita)", name: "definicion", widget: "text" }
+              - { label: "Título principal", name: "titulo", widget: "string", hint: "Usa \\n para saltos de línea" }
+              - { label: "Primer párrafo", name: "parrafo_1", widget: "text" }
+              - { label: "Segundo párrafo", name: "parrafo_2", widget: "text" }
+              - { label: "Cita / Definición", name: "definicion", widget: "text" }
 
           - label: "Sección — Contacto"
             name: "contacto"
             widget: "object"
+            collapsed: true
             fields:
               - { label: "Etiqueta de sección", name: "label", widget: "string" }
               - { label: "Título", name: "titulo", widget: "string" }
@@ -61,6 +63,7 @@ collections:
           - label: "Sección — Ubicación"
             name: "ubicacion"
             widget: "object"
+            collapsed: true
             fields:
               - { label: "Título", name: "titulo", widget: "string" }
               - { label: "Subtítulo", name: "subtitulo", widget: "string" }
@@ -69,5 +72,6 @@ collections:
           - label: "Footer"
             name: "footer"
             widget: "object"
+            collapsed: true
             fields:
               - { label: "Texto de copyright", name: "copyright", widget: "string" }

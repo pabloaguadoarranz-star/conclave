@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CONCLAVE — Valencia</title>
   <meta name="description" content="Una habitación cerrada con llave. Comer · Beber · Pecar. Próxima apertura en el Barrio del Carme, Valencia." />
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cinzel+Decorative:wght@400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -876,15 +875,6 @@
         })
         .catch(() => { /* Falla silenciosa: usa el HTML estático */ });
     })();
-
-    // Netlify Identity redirect
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on('init', user => {
-        if (!user) {
-          window.netlifyIdentity.on('login', () => { document.location.href = '/admin/'; });
-        }
-      });
-    }
 
     // Nav scroll effect
     const navbar = document.getElementById('navbar');
