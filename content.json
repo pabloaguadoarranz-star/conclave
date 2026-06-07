@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "titulo": "CONCLAVE — Valencia",
+    "descripcion": "Una habitación cerrada con llave. Comer · Beber · Pecar. Próxima apertura en el Barrio del Carme, Valencia."
+  },
+  "hero": {
+    "tagline_1": "Comer",
+    "tagline_2": "Beber",
+    "tagline_3": "Pecar",
+    "subtitulo": "Una habitación cerrada con llave.",
+    "proximamente": "Próximamente · Barrio del Carme · Valencia"
+  },
+  "concepto": {
+    "label": "El Concepto",
+    "titulo": "No se abre\npara todos.",
+    "parrafo_1": "CONCLAVE esconde una mesa reservada únicamente para aquellos que la merecen. Una experiencia concebida lejos del ruido, donde la penumbra y el tiempo suspendido son los únicos testigos de lo que ocurre dentro.",
+    "parrafo_2": "El placer de reunirse, de comer despacio, de beber bien y de pecar sin miedo. Un ritual privado en el corazón del Barrio del Carme.",
+    "definicion": "Del lat. mediev. conclave, en lat. 'habitación cerrada con llave'.\nm. Junta o congreso de personas que se reúnen para tratar algún asunto."
+  },
+  "contacto": {
+    "label": "Contacto",
+    "titulo": "¿Quieres\nsaber más?",
+    "parrafo": "Déjanos tu contacto y sé de los primeros en cruzar nuestra puerta. Grupos, eventos privados o simplemente tu lugar en la lista.",
+    "email": "hola@conclave.es",
+    "direccion": "Calle Caballeros · Barrio del Carme · Valencia",
+    "telefono": "+34 963 000 000"
+  },
+  "ubicacion": {
+    "titulo": "Barrio del Carme",
+    "subtitulo": "Calle Caballeros · Valencia · España",
+    "mapa_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3079.3!2d-0.3813!3d39.4741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd604f4f3b78f1c3%3A0x9a3a3d0f3c0a4f3!2sCalle+de+los+Caballeros%2C+Valencia!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses"
+  },
+  "footer": {
+    "copyright": "© 2025 CONCLAVE Valencia — Todos los derechos reservados"
+  }
+}

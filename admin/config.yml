@@ -1,0 +1,73 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Para desarrollo local: descomenta las dos líneas siguientes y comenta las de arriba
+# backend:
+#   name: proxy
+#   proxy_url: http://localhost:8081/api/v1
+
+locale: es
+media_folder: "assets/img"
+public_folder: "/assets/img"
+
+collections:
+  - name: "contenido"
+    label: "Contenido del sitio"
+    files:
+
+      - label: "Hero — Portada"
+        name: "hero"
+        file: "content.json"
+        fields:
+          - label: "Meta"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Título de la página (SEO)", name: "titulo", widget: "string" }
+              - { label: "Descripción (SEO)", name: "descripcion", widget: "text" }
+
+          - label: "Hero — Portada"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Tagline 1", name: "tagline_1", widget: "string", hint: "Primera palabra del tagline (ej: Comer)" }
+              - { label: "Tagline 2", name: "tagline_2", widget: "string", hint: "Segunda palabra (ej: Beber)" }
+              - { label: "Tagline 3", name: "tagline_3", widget: "string", hint: "Tercera palabra (ej: Pecar)" }
+              - { label: "Subtítulo", name: "subtitulo", widget: "string", hint: "Texto en cursiva bajo el logo" }
+              - { label: "Texto de apertura", name: "proximamente", widget: "string", hint: "Ej: Próximamente · Barrio del Carme · Valencia" }
+
+          - label: "Sección — El Concepto"
+            name: "concepto"
+            widget: "object"
+            fields:
+              - { label: "Etiqueta de sección", name: "label", widget: "string" }
+              - { label: "Título", name: "titulo", widget: "string", hint: "Usa \\n para saltos de línea" }
+              - { label: "Párrafo 1", name: "parrafo_1", widget: "text" }
+              - { label: "Párrafo 2", name: "parrafo_2", widget: "text" }
+              - { label: "Definición (cita)", name: "definicion", widget: "text" }
+
+          - label: "Sección — Contacto"
+            name: "contacto"
+            widget: "object"
+            fields:
+              - { label: "Etiqueta de sección", name: "label", widget: "string" }
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Párrafo introductorio", name: "parrafo", widget: "text" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Dirección", name: "direccion", widget: "string" }
+              - { label: "Teléfono", name: "telefono", widget: "string" }
+
+          - label: "Sección — Ubicación"
+            name: "ubicacion"
+            widget: "object"
+            fields:
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Subtítulo", name: "subtitulo", widget: "string" }
+              - { label: "URL del mapa (Google Maps embed)", name: "mapa_url", widget: "string" }
+
+          - label: "Footer"
+            name: "footer"
+            widget: "object"
+            fields:
+              - { label: "Texto de copyright", name: "copyright", widget: "string" }

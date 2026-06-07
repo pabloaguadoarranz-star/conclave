@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew install *)",
+      "Bash(pdftoppm -v)",
+      "Bash(mkdir -p /tmp/conclave_pdf)",
+      "Bash(pdftoppm -r 120 -f 1 -l 20 \"/Users/pabloaguado/Documents/TRABAJO/CONCLAVE/MAT CLIENTE/CONCLAVE-presentacion_identidad_lowres.pdf\" /tmp/conclave_pdf/identity)",
+      "Read(//tmp/**)",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}

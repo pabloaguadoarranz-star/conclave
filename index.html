@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CONCLAVE — Valencia</title>
+  <meta name="description" content="Una habitación cerrada con llave. Comer · Beber · Pecar. Próxima apertura en el Barrio del Carme, Valencia." />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cinzel+Decorative:wght@400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --crimson:   #470D25;
+      --aurum:     #5A4C35;
+      --smoke:     #272424;
+      --night:     #1B1F32;
+      --parchment: #DFD2BD;
+      --parchment-dim: #b8ac99;
+      --gold-light: #c9a96e;
+      --red-seal:  #8B1A2A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--smoke);
+      color: var(--parchment);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--smoke); }
+    ::-webkit-scrollbar-thumb { background: var(--aurum); }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      transition: background 0.5s ease, padding 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(39, 36, 36, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 3rem;
+      border-bottom: 1px solid rgba(90, 76, 53, 0.2);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+    .nav-logo svg { width: 28px; height: 28px; }
+    .nav-logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      color: var(--parchment);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--parchment-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* ── Hero ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: #080606;
+    }
+    /* Vignette over canvas */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.55) 100%),
+        radial-gradient(ellipse at 50% 100%, rgba(71,13,37,0.25) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    #smokeCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      animation: fadeUp 1.6s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Main wordmark */
+    .hero-wordmark {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(3rem, 10vw, 8rem);
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      color: var(--parchment);
+      line-height: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .hero-wordmark .letter-o {
+      position: relative;
+      display: inline-block;
+    }
+    .hero-wordmark .cross-in-o {
+      position: absolute;
+      pointer-events: none;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-wordmark .cross-in-o svg {
+      width: 0.32em;
+      height: 0.38em;
+    }
+
+    .hero-tagline {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--parchment-dim);
+      animation: fadeUp 1.6s 0.3s ease both;
+    }
+    .tagline-sep { color: var(--aurum); margin: 0 0.5em; }
+
+    .hero-divider {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--aurum), transparent);
+      animation: fadeUp 1.6s 0.6s ease both;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--parchment-dim);
+      letter-spacing: 0.08em;
+      animation: fadeUp 1.6s 0.5s ease both;
+    }
+
+    .hero-opening {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      animation: fadeUp 1.6s 0.8s ease both;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.5;
+      animation: pulse 3s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+      50%       { opacity: 0.8; transform: translateX(-50%) translateY(6px); }
+    }
+    .hero-scroll span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--parchment-dim);
+    }
+
+    /* ── Section base ── */
+    section { padding: 7rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--gold-light);
+    }
+
+    /* ── Concepto ── */
+    #concepto {
+      background: linear-gradient(180deg, var(--smoke) 0%, #1e1b1b 100%);
+      border-top: 1px solid rgba(90,76,53,0.15);
+    }
+    .concepto-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .concepto-symbol {
+      display: flex;
+      justify-content: center;
+    }
+    .concepto-symbol svg {
+      width: min(200px, 40vw);
+      opacity: 0.15;
+    }
+    .concepto-text h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 400;
+      color: var(--parchment);
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+      margin-bottom: 2rem;
+    }
+    .concepto-text p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.9;
+      color: var(--parchment-dim);
+      margin-bottom: 1.5rem;
+    }
+    .concepto-text p em {
+      color: var(--parchment);
+      font-style: italic;
+    }
+    .concepto-definition {
+      border-left: 1px solid var(--aurum);
+      padding-left: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .concepto-definition p {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: rgba(223,210,189,0.5);
+      line-height: 1.8;
+    }
+    /* espacio section removed */
+    .espacio-removed {
+      display: none;
+    }
+
+    /* ── Contacto ── */
+    #contacto {
+      background: linear-gradient(180deg, #1a1717 0%, var(--smoke) 100%);
+    }
+    .contacto-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contacto-info h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--parchment);
+      line-height: 1.3;
+      margin-bottom: 2rem;
+    }
+    .contacto-info p {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--parchment-dim);
+      margin-bottom: 2.5rem;
+    }
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-bottom: 3rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .contact-item-icon {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(90,76,53,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-item-icon svg { width: 14px; height: 14px; }
+    .contact-item-text {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--parchment-dim);
+    }
+    .contact-item-text strong {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.2rem;
+    }
+
+    /* Form */
+    .contacto-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .form-group label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(90,76,53,0.4);
+      color: var(--parchment);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      padding: 0.7rem 0;
+      outline: none;
+      transition: border-color 0.3s;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-bottom-color: var(--gold-light);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(223,210,189,0.3); }
+    .form-group select option { background: var(--smoke); color: var(--parchment); }
+    .form-group textarea { resize: none; height: 100px; }
+
+    .btn-submit {
+      margin-top: 0.5rem;
+      padding: 1rem 2.5rem;
+      background: transparent;
+      border: 1px solid var(--aurum);
+      color: var(--parchment);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      align-self: flex-start;
+    }
+    .btn-submit:hover {
+      background: var(--aurum);
+      color: var(--smoke);
+    }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3rem;
+      border: 1px solid rgba(90,76,53,0.3);
+    }
+    .form-success .seal { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.7; }
+    .form-success h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      color: var(--parchment);
+      margin-bottom: 0.8rem;
+    }
+    .form-success p {
+      font-size: 0.9rem;
+      color: var(--parchment-dim);
+      font-style: italic;
+    }
+
+    /* ── Mapa ── */
+    #ubicacion {
+      padding: 0;
+      position: relative;
+    }
+    .ubicacion-top {
+      background: var(--smoke);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .ubicacion-top h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      color: var(--parchment);
+      margin-bottom: 0.8rem;
+    }
+    .ubicacion-top p {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--parchment-dim);
+    }
+    .map-wrapper {
+      position: relative;
+      height: 420px;
+    }
+    .map-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-top: 3px solid var(--crimson);
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.5);
+    }
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      filter: grayscale(1) invert(1) contrast(0.85) brightness(0.85) sepia(0.2);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #0d0b0b;
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(90,76,53,0.1);
+    }
+    .footer-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-logo svg { width: 40px; height: 40px; opacity: 0.7; }
+    .footer-logo-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.4em;
+      color: var(--parchment-dim);
+    }
+    .footer-tagline {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: rgba(223,210,189,0.3);
+      margin-bottom: 3rem;
+    }
+    .footer-tagline .sep { color: var(--aurum); margin: 0 0.8em; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(223,210,189,0.3);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-light); }
+    .footer-copy {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: rgba(223,210,189,0.15);
+    }
+
+    /* ── Reveal animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+    .reveal-delay-3 { transition-delay: 0.45s; }
+
+    /* ── Hamburger mobile ── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--parchment-dim);
+      transition: all 0.3s;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      nav.scrolled { padding: 0.8rem 1.5rem; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      .concepto-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .concepto-symbol { display: none; }
+
+.contacto-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+
+      section { padding: 5rem 1.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-wordmark { font-size: clamp(2.2rem, 14vw, 4rem); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo" aria-label="Conclave inicio">
+      <!-- Icono C+cruz -->
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 20C32 26.627 26.627 32 20 32C13.373 32 8 26.627 8 20C8 13.373 13.373 8 20 8" stroke="#DFD2BD" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="20" y1="10" x2="20" y2="30" stroke="#DFD2BD" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="14" y1="15" x2="26" y2="15" stroke="#DFD2BD" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="16" y1="19" x2="24" y2="19" stroke="#DFD2BD" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+      <span class="nav-logo-text">CONCLAVE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#concepto">Concepto</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menú" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <canvas id="smokeCanvas"></canvas>
+    </div>
+    <div class="hero-content">
+      <p class="hero-tagline">
+        <span data-content="hero.tagline_1">Comer</span>
+        <span class="tagline-sep">·</span>
+        <span data-content="hero.tagline_2">Beber</span>
+        <span class="tagline-sep">·</span>
+        <span data-content="hero.tagline_3">Pecar</span>
+      </p>
+
+      <h1 class="hero-wordmark" aria-label="CONCLAVE">
+        <span>C</span>
+        <span>O</span>
+        <span>N</span>
+        <span class="letter-o">
+          <span>C</span>
+          <span class="cross-in-o" aria-hidden="true">
+            <svg viewBox="0 0 16 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="8" y1="0" x2="8" y2="22" stroke="#DFD2BD" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="2" y1="6" x2="14" y2="6"  stroke="#DFD2BD" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="4" y1="11" x2="12" y2="11" stroke="#DFD2BD" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </span>
+        <span>L</span>
+        <span>A</span>
+        <span>V</span>
+        <span>E</span>
+      </h1>
+
+      <div class="hero-divider"></div>
+
+      <p class="hero-sub" data-content="hero.subtitulo">Una habitación cerrada con llave.</p>
+      <p class="hero-opening" data-content="hero.proximamente">Próximamente · Barrio del Carme · Valencia</p>
+    </div>
+
+    <div class="hero-scroll">
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
+        <rect x="1" y="1" width="14" height="22" rx="7" stroke="rgba(223,210,189,0.5)" stroke-width="1"/>
+        <circle cx="8" cy="7" r="2" fill="rgba(223,210,189,0.5)">
+          <animateTransform attributeName="transform" type="translate" values="0,0;0,8;0,0" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <span>Descubrir</span>
+    </div>
+  </section>
+
+  <!-- CONCEPTO -->
+  <section id="concepto">
+    <div class="container">
+      <div class="concepto-inner">
+        <div class="concepto-symbol reveal">
+          <!-- Gran símbolo C+cruz decorativo -->
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M160 100C160 133.137 133.137 160 100 160C66.863 160 40 133.137 40 100C40 66.863 66.863 40 100 40" stroke="#DFD2BD" stroke-width="2" stroke-linecap="round"/>
+            <line x1="100" y1="50" x2="100" y2="150" stroke="#DFD2BD" stroke-width="2" stroke-linecap="round"/>
+            <line x1="70" y1="75" x2="130" y2="75" stroke="#DFD2BD" stroke-width="2" stroke-linecap="round"/>
+            <line x1="80" y1="93" x2="120" y2="93" stroke="#DFD2BD" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="concepto-text">
+          <div class="section-label reveal" data-content="concepto.label">El Concepto</div>
+          <h2 class="reveal reveal-delay-1" data-content-nl="concepto.titulo">No se abre<br/>para todos.</h2>
+          <p class="reveal reveal-delay-2" data-content="concepto.parrafo_1">
+            CONCLAVE esconde una mesa reservada únicamente para aquellos que la merecen.
+            Una experiencia concebida lejos del ruido, donde la penumbra y el tiempo
+            suspendido son los únicos testigos de lo que ocurre dentro.
+          </p>
+          <p class="reveal reveal-delay-2" data-content="concepto.parrafo_2">
+            El placer de reunirse, de comer despacio, de beber bien y de pecar sin
+            miedo. Un ritual privado en el corazón del Barrio del Carme.
+          </p>
+          <div class="concepto-definition reveal reveal-delay-3">
+            <p data-content-nl="concepto.definicion">
+              Del lat. mediev. conclave, en lat. 'habitación cerrada con llave'.<br/>
+              m. Junta o congreso de personas que se reúnen para tratar algún asunto.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <div class="contacto-inner">
+        <div class="contacto-info">
+          <div class="section-label reveal" data-content="contacto.label">Contacto</div>
+          <h2 class="reveal reveal-delay-1" data-content-nl="contacto.titulo">¿Quieres<br/>saber más?</h2>
+          <p class="reveal reveal-delay-2" data-content="contacto.parrafo">
+            Déjanos tu contacto y sé de los primeros en cruzar nuestra puerta.
+            Grupos, eventos privados o simplemente tu lugar en la lista.
+          </p>
+
+          <div class="contact-detail reveal reveal-delay-2">
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 14 14" fill="none">
+                  <path d="M1 3.5L7 8L13 3.5" stroke="#DFD2BD" stroke-width="0.8"/>
+                  <rect x="1" y="2" width="12" height="10" rx="1" stroke="#DFD2BD" stroke-width="0.8"/>
+                </svg>
+              </div>
+              <div class="contact-item-text">
+                <strong>Email</strong>
+                <span data-content="contacto.email">hola@conclave.es</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 14 14" fill="none">
+                  <path d="M7 7.5C8.38071 7.5 9.5 6.38071 9.5 5C9.5 3.61929 8.38071 2.5 7 2.5C5.61929 2.5 4.5 3.61929 4.5 5C4.5 6.38071 5.61929 7.5 7 7.5Z" stroke="#DFD2BD" stroke-width="0.8"/>
+                  <path d="M7 7.5C7 7.5 2.5 10.5 2.5 12.5H11.5C11.5 10.5 7 7.5 7 7.5Z" stroke="#DFD2BD" stroke-width="0.8"/>
+                </svg>
+              </div>
+              <div class="contact-item-text">
+                <strong>Dirección</strong>
+                <span data-content="contacto.direccion">Calle Caballeros · Barrio del Carme · Valencia</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 14 14" fill="none">
+                  <path d="M2 2.5C2 2.5 3.5 1 5 2.5C6 3.5 5.5 5 5.5 5C5.5 5 7 6.5 8 6.5C8 6.5 9.5 5.5 11 6.5C12.5 8 11 9.5 11 9.5C9.5 12 2.5 5 2 2.5Z" stroke="#DFD2BD" stroke-width="0.8"/>
+                </svg>
+              </div>
+              <div class="contact-item-text">
+                <strong>Teléfono</strong>
+                <span data-content="contacto.telefono">+34 963 000 000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <form class="contacto-form" id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="motivo">Motivo</label>
+              <select id="motivo" name="motivo">
+                <option value="">Selecciona una opción</option>
+                <option value="lista">Lista de espera — apertura</option>
+                <option value="evento">Evento privado</option>
+                <option value="grupo">Reserva de grupo</option>
+                <option value="prensa">Prensa / Medios</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Enviar mensaje</button>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <div class="seal">☩</div>
+            <h3>Recibido.</h3>
+            <p>Nos pondremos en contacto contigo pronto.<br/>Hasta entonces, la puerta permanece cerrada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UBICACIÓN -->
+  <section id="ubicacion">
+    <div class="ubicacion-top">
+      <div class="section-label reveal" style="justify-content:center; text-align:center;">
+        <span style="display:none"></span>Ubicación
+      </div>
+      <h2 class="reveal reveal-delay-1" data-content="ubicacion.titulo">Barrio del Carme</h2>
+      <p class="reveal reveal-delay-2" data-content="ubicacion.subtitulo">Calle Caballeros · Valencia · España</p>
+    </div>
+    <div class="map-wrapper">
+      <iframe
+        id="mapaIframe"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3079.3!2d-0.3813!3d39.4741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd604f4f3b78f1c3%3A0x9a3a3d0f3c0a4f3!2sCalle+de+los+Caballeros%2C+Valencia!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Ubicación CONCLAVE — Calle Caballeros, Valencia"
+      ></iframe>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 20C32 26.627 26.627 32 20 32C13.373 32 8 26.627 8 20C8 13.373 13.373 8 20 8" stroke="#DFD2BD" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="20" y1="10" x2="20" y2="30" stroke="#DFD2BD" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="14" y1="15" x2="26" y2="15" stroke="#DFD2BD" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="16" y1="19" x2="24" y2="19" stroke="#DFD2BD" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+      <span class="footer-logo-name">CONCLAVE</span>
+    </div>
+    <p class="footer-tagline">
+      Comer<span class="sep">·</span>Beber<span class="sep">·</span>Pecar
+    </p>
+    <ul class="footer-links">
+      <li><a href="#concepto">Concepto</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+    </ul>
+    <p class="footer-copy" data-content="footer.copyright">&copy; 2025 CONCLAVE Valencia &mdash; Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    // ── Carga de contenido desde content.json ──
+    (function loadContent() {
+      fetch('/content.json?v=' + Date.now())
+        .then(r => r.json())
+        .then(data => {
+          // Función para leer claves anidadas: "hero.tagline_1" → data.hero.tagline_1
+          function get(path) {
+            return path.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : null), data);
+          }
+
+          // data-content: texto plano
+          document.querySelectorAll('[data-content]').forEach(el => {
+            const val = get(el.dataset.content);
+            if (val !== null) el.textContent = val;
+          });
+
+          // data-content-nl: texto con saltos de línea (\n → <br>)
+          document.querySelectorAll('[data-content-nl]').forEach(el => {
+            const val = get(el.dataset.contentNl);
+            if (val !== null) el.innerHTML = val.replace(/\n/g, '<br/>');
+          });
+
+          // Mapa
+          const mapaUrl = get('ubicacion.mapa_url');
+          if (mapaUrl) {
+            const iframe = document.getElementById('mapaIframe');
+            if (iframe) iframe.src = mapaUrl;
+          }
+
+          // Meta
+          const titulo = get('meta.titulo');
+          const desc   = get('meta.descripcion');
+          if (titulo) document.title = titulo;
+          if (desc)   document.querySelector('meta[name="description"]').content = desc;
+        })
+        .catch(() => { /* Falla silenciosa: usa el HTML estático */ });
+    })();
+
+    // Netlify Identity redirect
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', user => {
+        if (!user) {
+          window.netlifyIdentity.on('login', () => { document.location.href = '/admin/'; });
+        }
+      });
+    }
+
+    // Nav scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Mobile menu
+    let menuOpen = false;
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      const links = document.querySelector('.nav-links');
+      if (menuOpen) {
+        links.style.cssText = `
+          display:flex; flex-direction:column; position:fixed;
+          top:0; left:0; right:0; bottom:0; background:rgba(13,11,11,0.97);
+          justify-content:center; align-items:center; gap:2.5rem;
+          z-index:99;
+        `;
+        links.querySelectorAll('a').forEach(a => {
+          a.style.fontSize = '0.9rem';
+          a.addEventListener('click', toggleMenu);
+        });
+      } else {
+        links.removeAttribute('style');
+      }
+    }
+
+    // Form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }
+
+    // ── Fumata Negra — smoke simulation ──
+    (function() {
+      const canvas = document.getElementById('smokeCanvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [], animId;
+
+      function resize() {
+        W = canvas.width  = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      // Particle class
+      function Particle(x) {
+        this.reset(x);
+      }
+      Particle.prototype.reset = function(x) {
+        this.x  = x !== undefined ? x : W * (0.3 + Math.random() * 0.4);
+        this.y  = H * (0.75 + Math.random() * 0.25);
+        this.vx = (Math.random() - 0.5) * 0.6;
+        this.vy = -(0.5 + Math.random() * 1.2);
+        this.r  = 60 + Math.random() * 120;
+        this.life = 0;
+        this.maxLife = 180 + Math.random() * 200;
+        // Slight crimson tint on some particles for brand warmth
+        this.tinted = Math.random() < 0.12;
+        this.rot    = Math.random() * Math.PI * 2;
+        this.rotSpd = (Math.random() - 0.5) * 0.008;
+        this.wobble = Math.random() * Math.PI * 2;
+        this.wobbleSpd = 0.012 + Math.random() * 0.008;
+      };
+      Particle.prototype.update = function() {
+        this.life++;
+        this.wobble += this.wobbleSpd;
+        this.vx += Math.sin(this.wobble) * 0.025;
+        // Slight upward acceleration then drift
+        this.vy -= 0.003;
+        // Widen as smoke rises
+        this.r  += 0.55;
+        this.x  += this.vx;
+        this.y  += this.vy;
+        this.rot += this.rotSpd;
+      };
+      Particle.prototype.draw = function() {
+        const t    = this.life / this.maxLife;
+        // fade in quickly, linger, fade out
+        const alpha = t < 0.12
+          ? (t / 0.12) * 0.38
+          : (1 - t) * 0.38;
+        if (alpha <= 0) return;
+
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rot);
+
+        const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, this.r);
+        if (this.tinted) {
+          grad.addColorStop(0,   `rgba(60,18,28,${alpha * 1.1})`);
+          grad.addColorStop(0.5, `rgba(28,12,16,${alpha * 0.7})`);
+          grad.addColorStop(1,   `rgba(8,6,6,0)`);
+        } else {
+          // Deep charcoal smoke — very dark, almost black
+          const v = Math.floor(12 + Math.random() * 10);
+          grad.addColorStop(0,   `rgba(${v},${v},${v},${alpha * 1.0})`);
+          grad.addColorStop(0.5, `rgba(${v-4},${v-4},${v-4},${alpha * 0.6})`);
+          grad.addColorStop(1,   `rgba(5,5,5,0)`);
+        }
+
+        // Slightly elliptical puff
+        ctx.scale(1, 0.7 + Math.random() * 0.2);
+        ctx.beginPath();
+        ctx.arc(0, 0, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.restore();
+      };
+
+      // Spawn initial cloud — pre-fill with mature particles
+      for (let i = 0; i < 180; i++) {
+        const p = new Particle();
+        p.life = Math.floor(Math.random() * p.maxLife);
+        particles.push(p);
+      }
+
+      // Spawn continuously from a narrow chimney-like source
+      let spawnTimer = 0;
+      function loop() {
+        animId = requestAnimationFrame(loop);
+
+        // Dark base — slow trail for density buildup
+        ctx.fillStyle = 'rgba(8,6,6,0.12)';
+        ctx.fillRect(0, 0, W, H);
+
+        // Spawn 3 new puffs every frame
+        spawnTimer++;
+        if (spawnTimer % 2 === 0) {
+          for (let i = 0; i < 3; i++) {
+            const cx = W * 0.5 + (Math.random() - 0.5) * W * 0.08;
+            particles.push(new Particle(cx));
+          }
+        }
+
+        // Update & draw
+        particles.forEach(p => { p.update(); p.draw(); });
+
+        // Recycle dead particles
+        particles = particles.filter(p => p.life < p.maxLife);
+
+        // Cap pool — higher ceiling for density
+        if (particles.length > 500) particles.splice(0, particles.length - 500);
+      }
+
+      loop();
+
+      // Pause when tab hidden
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) cancelAnimationFrame(animId);
+        else loop();
+      });
+    })();
+  </script>
+</body>
+</html>
